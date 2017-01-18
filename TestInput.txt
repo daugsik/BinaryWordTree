@@ -1,0 +1,9 @@
+The report should have at least the following: 
+Design approach:? for instance, you can use the following models 
+think black box model: define what the problem is, inputs and outputs 
+and top-down design we discussed in class 
+Figures like data flow charts are highly recommended, as well as other diagrams that help explain your approach 
+Describe any assumption you have made, and explain your design and implementation decisions 
+Report your results (e.g., inlude a screen shot of a run of? your program) and explain the results 
+Explain how you tested your program 
+Conclusions
