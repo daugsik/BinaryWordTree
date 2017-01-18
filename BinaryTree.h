@@ -13,18 +13,18 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const BinaryTree& toPrint);
 
 private:
-	struct Node
+	struct WordNode
 	{
 		std::string word;
 		int count;
-		Node* leftBranch;
-		Node* rightBranch;
-		void printNode();		
-		void deleteNode();		//recursive method to delete nodes
+		WordNode* left;
+		WordNode* right;
+		void printWordNode();		
+		void deleteWordNode();		//recursive method to delete nodes
 	};
 	
-	Node* root;
+	WordNode* root;
 
-	Node* getNode(std::string nodeWord);
+	WordNode* getWordNode(std::string nodeWord);
 };
 
