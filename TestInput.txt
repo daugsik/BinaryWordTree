@@ -1,9 +1,7 @@
-The report should have at least the following: 
-Design approach:? for instance, you can use the following models 
-think black box model: define what the problem is, inputs and outputs 
-and top-down design we discussed in class 
-Figures like data flow charts are highly recommended, as well as other diagrams that help explain your approach 
-Describe any assumption you have made, and explain your design and implementation decisions 
-Report your results (e.g., inlude a screen shot of a run of? your program) and explain the results 
-Explain how you tested your program 
-Conclusions
+Converts zed Zed c to its lowercase equivalent if c is An uppercase letter And has a lowercase equivalent. If no such conversion is possible, the value returned is c unchanged.
+
+Notice that what is considered a letter may depend on the locale being used; In the default "C" locale, an uppercase letter is any of: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z, which translate respectively to: a b c d e f g h i j k l m n o p q r s t u v w x y z.
+
+In other locales, if an uppercase character has more than one correspondent lowercase character, this function always returns the same character for the same value of c.
+
+In C++, a locale-specific template version of this function (tolower) exists in header <locale>.

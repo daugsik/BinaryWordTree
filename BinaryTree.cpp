@@ -52,6 +52,7 @@ void BinaryTree::Add(std::string toAdd)
 	{
 		root->word = toAdd;
 		root->count = 1;
+		return;
 	};
 
 	WordNode *nodeP = root;
@@ -108,12 +109,13 @@ void BinaryTree::printNode(WordNode* toPrint) const
 		printNode(toPrint->left);
 	}
 
+	std::cout << toPrint->count << "\t" << toPrint->word << std::endl;
+
 	if (toPrint->right != NULL)
 	{
 		printNode(toPrint->right);
 	}
 
-	std::cout << toPrint->word << " " << toPrint->count << std::endl;
 };
 
 /*
