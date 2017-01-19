@@ -91,29 +91,33 @@ int BinaryTree::numWords()
 
 int BinaryTree::numHelper(WordNode* toCount)
 {
-	//If the root is "empty," don't count
-	if (toCount->count <= 0)	{	return 0;	};
+	//If the root is "empty," or if toCount is null don't count
+	if (toCount->count <= 0
+		|| toCount == NULL) 
+	{
+		return 0;
+	};
 
 	int counter = 1;
 
 	if (toCount->left != NULL) { counter += numHelper(toCount->left); };
-	if (toCount->right != NULL) { counter += numHelper(toCount->left); };
+	if (toCount->right != NULL) { counter += numHelper(toCount->right); };
 
 	return counter;
 };
 
-void BinaryTree::printNode(WordNode* toPrint) const
+void BinaryTree::printNode(WordNode* toPrint, std::ostream& os) const
 {
 	if (toPrint->left != NULL)
 	{
-		printNode(toPrint->left);
+		printNode(toPrint->left, os);
 	}
 
-	std::cout << toPrint->count << "\t" << toPrint->word << std::endl;
+	os << toPrint->count << "\t" << toPrint->word << std::endl;
 
 	if (toPrint->right != NULL)
 	{
-		printNode(toPrint->right);
+		printNode(toPrint->right, os);
 	}
 
 };
@@ -154,6 +158,6 @@ bool BinaryTree::getWordNode(WordNode* &toReturn, std::string value)
 
 std::ostream& operator<<(std::ostream& os, const BinaryTree& toPrint)
 {
-	toPrint.printNode(toPrint.root);
+	toPrint.printNode(toPrint.root, os);
 	return os;
 };

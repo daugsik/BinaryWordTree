@@ -11,6 +11,7 @@
 void iterateLine(std::string lineToRead, BinaryTree& tree);
 void formatCases (std::string& toChange);
 char loweredCase(const char& val);
+bool rangeCheck(const int& location, const std::string& lineToRead);
 
 int main (int argc, char* argv[])
 {
@@ -31,7 +32,13 @@ int main (int argc, char* argv[])
 		std::cout << ".";
 	}
 
-	std::cout << wordTree;										//Print contents of the tree
+	std::cout << std::endl;
+
+	std::ofstream output;
+	output.open("output.txt");
+	output << wordTree;										//Print contents of the tree to external file
+
+	std::cout << "Word Tree Completed. Total unique word count: " << wordTree.numWords() << std::endl;
 
 	return 0;
 }
@@ -50,11 +57,7 @@ void iterateLine(std::string lineToRead, BinaryTree& tree)
 		std::string temp = "";
 
 		// removes leading whitespace and non-alphanumeric characters
-		while (!((lineToRead.at(head) >= 'A'		// if the character is NOT
-			&& lineToRead.at(head) <= 'Z')		// between A-Z or a-z
-			||
-			(lineToRead.at(head) >= 'a'
-			&& lineToRead.at(head) <= 'z'))
+		while (!rangeCheck(head,lineToRead)
 			&& head < lineToRead.length())		// and there is still some string to read
 		{
 			head++;									// iterate head forward
@@ -62,8 +65,7 @@ void iterateLine(std::string lineToRead, BinaryTree& tree)
 		};
 
 		while ((head + length < lineToRead.length())	// if the substring is not longer than the string
-				&& ((lineToRead.at(head + length) >= 'A' && lineToRead.at(head + length) <= 'Z') // and is either an alphanumeric character
-				|| (lineToRead.at(head + length) >= 'a' && lineToRead.at(head + length) <= 'z')
+				&& (rangeCheck(head+length, lineToRead)
 				|| lineToRead.at(head + length) == '\''))			// or an apostrophe, increment length
 		{
 			length++;
@@ -91,7 +93,7 @@ bool rangeCheck(const int& location, const std::string& lineToRead)
 void formatCases(std::string& toChange)
 {
 	std::string lowCase = "";
-	for (int i = 0; i < toChange.size(); i++)
+	for (unsigned int i = 0; i < toChange.size(); i++)
 	{
 		lowCase.append(1, tolower(toChange.at(i)));
 	}

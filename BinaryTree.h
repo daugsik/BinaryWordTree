@@ -24,7 +24,7 @@ private:
 	
 	WordNode* root;
 
-	void printNode(WordNode* toPrint) const;
+	void printNode(WordNode* toPrint, std::ostream& os) const;
 	bool getWordNode(WordNode* &toReturn, std::string value);
 	int numHelper(WordNode* toCount);
 	void deleteNode(WordNode* toDelete);
