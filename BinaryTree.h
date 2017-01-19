@@ -12,6 +12,7 @@ public:
 	int numWords();
 	friend std::ostream& operator<<(std::ostream& os, const BinaryTree& toPrint);
 
+
 private:
 	struct WordNode
 	{
@@ -19,12 +20,12 @@ private:
 		int count;
 		WordNode* left;
 		WordNode* right;
-		void printWordNode();		
-		void deleteWordNode();		//recursive method to delete nodes
 	};
 	
 	WordNode* root;
 
-	WordNode* getWordNode(std::string nodeWord);
+	void printWord(WordNode& toPrint);
+	bool getWordNode(WordNode* toReturn, std::string value);
+	int numHelper(WordNode* toCount);
 };
 
