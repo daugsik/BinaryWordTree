@@ -4,8 +4,8 @@
 BinaryTree::BinaryTree(void)
 {
 	root = new WordNode;
-	root->count = 0;
-	root->word = "";
+	root-> count = 0;
+	root-> word = "";
 };
 
 
@@ -14,13 +14,41 @@ BinaryTree::~BinaryTree(void)
 
 };
 
+/* Helper function for ~BinaryTree
+*/
+void BinaryTree::deleteNode(WordNode* toDelete)
+{
+	if (toDelete->left != NULL)
+	{
+		deleteNode(toDelete->left);
+	}
+
+	if (toDelete->right != NULL)
+	{
+		deleteNode(toDelete->right);
+	}
+
+	delete toDelete;
+	toDelete = NULL;
+};
+
 /*
 	Assumes a properly formatted (all lower-case and no whitespace)
 	If the word to be added exists, increment the associated WordNode
 	count value. If not, create a new node and increment counter by 1.
+
+	Special Case: If the tree is currently empty (represented by a root
+	node counter of 0) input the first string seen into the root node.
 */
 void BinaryTree::Add(std::string toAdd)
 {
+	// If the tree is empty, fill the root.
+	if (root->count == 0)
+	{
+		root->word = toAdd;
+		root->count = 1;
+	};
+
 	WordNode *nodeP = root;
 	
 	// If the word already exists in the tree, increment the counter in the node
@@ -29,7 +57,7 @@ void BinaryTree::Add(std::string toAdd)
 	{
 		nodeP->count++;
 		return;
-	}
+	};
 
 	// Else, create a new node and attach to the tree.
 	// Note: as a result of getWordNode, nodeP points to the closest leaf node 
@@ -68,12 +96,20 @@ int BinaryTree::numHelper(WordNode* toCount)
 	return counter;
 };
 
-void BinaryTree::printWord(WordNode& toPrint)
+void BinaryTree::printNode(WordNode& toPrint)
 {
 
 };
 
-bool BinaryTree::getWordNode(WordNode* toReturn, std::string value)
+/*
+	Searches the tree for a specific word
+		If the word is found, it returns true.
+		If not, it returns false.
+	As a side effect of how the toReturn pointer is manipulated, after
+	the function finishes, the calling toReturn points at the last node
+	traversed.
+*/
+bool BinaryTree::getWordNode(WordNode* &toReturn, std::string value)
 {
 	// FOUND CASE
 	if (value == toReturn->word)
@@ -84,13 +120,15 @@ bool BinaryTree::getWordNode(WordNode* toReturn, std::string value)
 	// LEFT BRANCH
 	if (toReturn->left != NULL && value < toReturn->word)
 	{
-		return getWordNode(toReturn->left, value);
+		toReturn = toReturn->left;
+		return getWordNode(toReturn, value);
 	};
 
 	// RIGHT BRANCH
 	if (toReturn->right != NULL && value > toReturn->word)
 	{
-		return getWordNode(toReturn->left, value);
+		toReturn = toReturn->right;
+		return getWordNode(toReturn, value);
 	};
 
 	// IF NOT FOUND RETURN FALSE
