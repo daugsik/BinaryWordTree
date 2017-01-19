@@ -1,6 +1,5 @@
-﻿  BinaryTree.cpp
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  CountWords.cpp
+﻿  CountWords.cpp
+d:\users\don\documents\visual studio 2012\projects\binarywordtree\binarywordtree\countwords.cpp(89): warning C4018: '<': signed/unsigned mismatch
+d:\users\don\documents\visual studio 2012\projects\binarywordtree\binarywordtree\countwords.cpp(102): warning C4715: 'loweredCase': not all control paths return a value
   BinaryWordTree.vcxproj -> D:\Users\Don\Documents\visual studio 2012\Projects\BinaryWordTree\Debug\BinaryWordTree.exe
   BinaryWordTree.vcxproj -> D:\Users\Don\Documents\visual studio 2012\Projects\BinaryWordTree\Debug\BinaryWordTree.pdb (Full PDB)

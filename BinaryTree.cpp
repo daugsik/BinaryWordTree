@@ -11,10 +11,13 @@ BinaryTree::BinaryTree(void)
 
 BinaryTree::~BinaryTree(void)
 {
-
+	std::cout << ".";
+	deleteNode(root);
 };
 
 /* Helper function for ~BinaryTree
+	traverses down left first, then right, then deallocates
+	node memory before deleting pointers pointers.
 */
 void BinaryTree::deleteNode(WordNode* toDelete)
 {
@@ -28,6 +31,8 @@ void BinaryTree::deleteNode(WordNode* toDelete)
 		deleteNode(toDelete->right);
 	}
 
+	toDelete->left = NULL;
+	toDelete->right = NULL;
 	delete toDelete;
 	toDelete = NULL;
 };
@@ -96,9 +101,19 @@ int BinaryTree::numHelper(WordNode* toCount)
 	return counter;
 };
 
-void BinaryTree::printNode(WordNode& toPrint)
+void BinaryTree::printNode(WordNode* toPrint) const
 {
+	if (toPrint->left != NULL)
+	{
+		printNode(toPrint->left);
+	}
 
+	if (toPrint->right != NULL)
+	{
+		printNode(toPrint->right);
+	}
+
+	std::cout << toPrint->word << " " << toPrint->count << std::endl;
 };
 
 /*
@@ -137,5 +152,6 @@ bool BinaryTree::getWordNode(WordNode* &toReturn, std::string value)
 
 std::ostream& operator<<(std::ostream& os, const BinaryTree& toPrint)
 {
+	toPrint.printNode(toPrint.root);
 	return os;
 };

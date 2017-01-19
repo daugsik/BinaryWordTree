@@ -8,12 +8,12 @@
 #include <fstream>
 #include <iostream>
 
-void iterateFile (int& head, int& tail, std::ifstream& toRead, BinaryTree tree);
+void iterateLine(std::string lineToRead, BinaryTree tree);
 void formatCases (std::string& toChange);
+char loweredCase(const char& val);
 
 int main (int argc, char* argv[])
 {
-	std::string line;
 	BinaryTree wordTree;
 
 	std::string fileName("TestInput.txt"); //REPLACE THIS THAHGALGHALGHALGHALGHALHGLGHALGHLAGHLAHGLAHGLAHGLAHGLAHGLAHGLAHGLAHGLAHGLAHGLAHGLAHGLHALGHA
@@ -22,23 +22,62 @@ int main (int argc, char* argv[])
 	std::ifstream book;
 	book.open(fileName);										//opens input
 
-	int wordHead = 0;
-	int wordLength = 1;
+	long int wordHead = 0;
+	std::string lineToRead = "";
 
-	do { iterateFile(wordHead, wordLength, book, wordTree); }
-	while (book);													//while there are still words in the file, continue iterating
+	while (getline(book, lineToRead))
+	{
+		iterateLine(lineToRead, wordTree);						//while there are still words in the file, continue iterating
+		std::cout << ".";
+	}
 
-	//std::cout << wordTree;											//Print contents of the tree
+	std::cout << wordTree;										//Print contents of the tree
 
 	return 0;
 }
 
 /*
-	Workhorse function. Takes in and writes on outside variables to iterate and obtain words. 
+	Workhorse function. 
 */
-void iterateFile(int& head, int& length, std::ifstream& toRead, BinaryTree tree)
+void iterateLine(std::string lineToRead, BinaryTree tree)
 {
-	
+	long unsigned int head = 0;
+
+	//do until head reaches the end of the line
+	while (head < lineToRead.length() - 1)
+	{
+		int unsigned length = 0;
+		std::string temp = "";
+
+		// removes leading whitespace and non-alphanumeric characters
+		while (!((lineToRead.at(head) > 'A'		// if the character is NOT
+			&& lineToRead.at(head) < 'Z')		// between A-Z or a-z
+			||
+			(lineToRead.at(head) > 'a'
+			&& lineToRead.at(head) < 'z'))
+			&& head < lineToRead.length())		// and there is still some string to read
+		{
+			head++;									// iterate head forward
+			if (head >= lineToRead.length()) { return; };
+		};
+
+		while ((head + length < lineToRead.length())	// if the substring is not longer than the string
+				&& ((lineToRead.at(head + length) > 'A'			// and is either an alphanumeric character
+				&& lineToRead.at(head + length) < 'Z')
+				|| (lineToRead.at(head + length) > 'a'
+				&& lineToRead.at(head + length) < 'z')
+				|| lineToRead.at(head + length) == '-'))			// or a dash, increment length
+		{
+			length++;
+		}
+
+		temp = lineToRead.substr(head, length);
+		//formatCases(temp);
+
+		tree.Add(temp);
+
+		head += length;
+	}
 }
 
 /*
@@ -46,5 +85,18 @@ void iterateFile(int& head, int& length, std::ifstream& toRead, BinaryTree tree)
 */
 void formatCases(std::string& toChange)
 {
-	toChange = "HAHAHA ";
+	std::string lowCase = "";
+	for (int i = 0; i < toChange.size(); i++)
+	{
+		lowCase.append(1, loweredCase(toChange.at(i)));
+	}
+	toChange = lowCase;
+}
+
+char loweredCase(const char& val)
+{
+	if (val <= 'Z' && val >= 'A')
+	{
+		return val + ('a' - 'A');
+	}
 }
